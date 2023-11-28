@@ -1,18 +1,10 @@
 package com.api.socialnetwork.controller;
-/**
- * @since 13/09/2022
- * @autor Cesar Augusto
- * @version v1
- */
 
-import com.api.socialnetwork.dto.PostagemCreateDto;
-import com.api.socialnetwork.dto.PostagemDto;
-import com.api.socialnetwork.exception.RegraDeNegocioException;
-import com.api.socialnetwork.service.PostagemService;
-import io.swagger.v3.oas.annotations.Operation;
-import lombok.RequiredArgsConstructor;
+import com.api.socialnetwork.model.Postagem;
+import com.api.socialnetwork.repository.PostagemRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -20,40 +12,29 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/postagem")
-@Validated
-@RequiredArgsConstructor
+@CrossOrigin(value = "*", allowedHeaders = "*")
 public class PostagemController {
+    @Autowired
+    private PostagemRepository postagemRepository;
 
-    private final PostagemService postagemService;
-
-    @Operation(summary = "Recupera todas as postagens.", description = "Recupera todas as postagens do banco de dados.")
-    @GetMapping("/todas-postagens")
-    public ResponseEntity<List<PostagemDto>> getAll() throws RegraDeNegocioException {
-        return ResponseEntity.ok(postagemService.getAll());
+    @GetMapping
+    public ResponseEntity<List<Postagem>> getAll() {
+        return ResponseEntity.ok(postagemRepository.findAll());
     }
 
-    @Operation(summary = "Recupera as postagens do usuário logado.", description = "Recupera as postagens presentes no banco com base no usuário logado.")
-    @GetMapping("/minhas-postagens")
-    public ResponseEntity<List<PostagemDto>> getMyPosts() {
-        return ResponseEntity.ok(postagemService.getMyPosts());
+    @GetMapping("/{titulo}")
+    public ResponseEntity<List<Postagem>> getByTitulo(@PathVariable String titulo) {
+        return ResponseEntity.ok(postagemRepository.findAllByTituloContainingIgnoreCase(titulo));
     }
 
-    @Operation(summary = "Realiza uma postagem.", description = "Salva uma postagem no banco de dados.")
-    @PostMapping("/postar")
-    public ResponseEntity<PostagemDto> create(@RequestBody PostagemCreateDto postagemCreateDto) throws RegraDeNegocioException {
-        return ResponseEntity.ok(postagemService.create(postagemCreateDto));
+    @PostMapping("/novoPost")
+    public ResponseEntity<Postagem> post(@Valid @RequestBody Postagem postagem) {
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(postagemRepository.save(postagem));
     }
 
-    @Operation(summary = "Altera uma postagem com base no id da mesma.", description = "Altera uma postagem presente no banco de dados com base no id informado.")
-    @PutMapping("/{idPostagem}")
-    public ResponseEntity<PostagemDto> update(@Valid @PathVariable("idPostagem") Integer idPostagem,
-                                              PostagemCreateDto postagemCreateDto) throws RegraDeNegocioException {
-        return ResponseEntity.ok(postagemService.update(postagemCreateDto, idPostagem));
-    }
-
-    @Operation(summary = "Deleta uma postagem com base no id da mesma.", description = "Deleta uma postagem no banco de dados com base no id informado.")
-    @DeleteMapping("/{idPostagem}")
-    public void delete(@PathVariable("idPostagem") Integer idPostagem) throws RegraDeNegocioException {
-        postagemService.delete(idPostagem);
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable Long id) {
+        postagemRepository.deleteById(id);
     }
 }

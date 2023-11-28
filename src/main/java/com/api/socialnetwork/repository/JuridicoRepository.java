@@ -5,7 +5,7 @@ package com.api.socialnetwork.repository;
  * @version v1
  */
 
-import com.api.socialnetwork.model.Usuario;
+import com.api.socialnetwork.model.Juridico;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -13,9 +13,8 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
-    List<Usuario> findAllByNomeContainingIgnoreCase (String nome);
+public interface JuridicoRepository extends JpaRepository<Juridico, Long> {
+    List<Juridico> findAllByNomeContainingIgnoreCase (String nome);
 
-    Optional<Usuario> findByEmail(String email);
-
+    Optional<Juridico> findByEmail(String email);
 }

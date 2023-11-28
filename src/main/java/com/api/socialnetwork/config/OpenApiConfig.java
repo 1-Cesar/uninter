@@ -1,9 +1,4 @@
 package com.api.socialnetwork.config;
-/**
- * @since 13/09/2022
- * @autor Cesar Augusto
- * @version v1
- */
 
 import io.swagger.v3.oas.annotations.Hidden;
 import io.swagger.v3.oas.models.Components;
@@ -19,28 +14,12 @@ import io.swagger.v3.oas.models.security.SecurityScheme;
 import org.springdoc.core.customizers.OpenApiCustomiser;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.HttpServletResponse;
-import javax.sql.DataSource;
-import java.io.IOException;
-
-@Hidden
 @Configuration
-@RestController
 public class OpenApiConfig {
-
-    @GetMapping(value = "/")
-    public void index(HttpServletResponse response) throws IOException {
-        response.sendRedirect("/swagger-ui/index.html");
-    }
 
     @Bean
     public OpenAPI documentacao() {
-        String securitySchemeName = "bearerAuth";
-
         return new OpenAPI()
                 .info(new Info()
                         .title("API Social Network")
@@ -52,14 +31,6 @@ public class OpenApiConfig {
                         .contact(new Contact()
                                 .name("Cesar Augusto")
                                 .url("https://github.com.br/1-Cesar")))
-                .addSecurityItem(new SecurityRequirement().addList(securitySchemeName))
-                .components(new Components()
-                        .addSecuritySchemes(securitySchemeName,
-                                new SecurityScheme()
-                                        .name(securitySchemeName)
-                                        .type(SecurityScheme.Type.HTTP)
-                                        .scheme("bearer")
-                                        .bearerFormat("JWT")))
                 .externalDocs(new ExternalDocumentation()
                         .description("Clique aqui para ver o diagrama de Entidade Relacionamento")
                         .url("#"));
@@ -85,5 +56,4 @@ public class OpenApiConfig {
     private ApiResponse createApiResponse(String message) {
         return new ApiResponse().description(message);
     }
-    
 }

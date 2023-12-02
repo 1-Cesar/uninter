@@ -1,10 +1,6 @@
 package com.api.socialnetwork.model;
-/**
- * @since 13/09/2022
- * @autor Cesar Augusto
- * @version v1
- */
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import io.swagger.v3.oas.annotations.Hidden;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -14,7 +10,6 @@ import lombok.Setter;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import java.util.List;
 
 @Getter
@@ -40,11 +35,12 @@ public class Juridico {
     @NotNull
     private String cnpj;
 
+    @NotNull
+    private String tipo;
+
     @Hidden
     @OneToMany(mappedBy = "juridico", cascade = CascadeType.REMOVE)
     @JsonIgnoreProperties("juridico")
+    @JsonBackReference
     private List<Postagem> postagens;
-
-    public Juridico() {
-    }
 }

@@ -27,14 +27,16 @@ public class LoginService {
             Optional<Usuario> usuario = usuarioRepository.findByEmail(email);
 
             if (usuario.isPresent() && senha.equals(usuario.get().getSenha())) {
-                usuarioLogin.get().setLogado(true);
+                usuarioLogin.get().setTipo(usuario.get().getTipo());
+                usuarioLogin.get().setId(usuario.get().getId());
                 return usuarioLogin;
             }
 
             Optional<Juridico> juridico = juridicoRepository.findByEmail(email);
 
             if (juridico.isPresent() && senha.equals(juridico.get().getSenha())) {
-                usuarioLogin.get().setLogado(true);
+                usuarioLogin.get().setTipo(juridico.get().getTipo());
+                usuarioLogin.get().setId(juridico.get().getId());
                 return usuarioLogin;
             }
         }

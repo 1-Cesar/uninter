@@ -1,7 +1,9 @@
 package com.api.socialnetwork.controller;
 
 import com.api.socialnetwork.model.Postagem;
+import com.api.socialnetwork.model.Postagem2;
 import com.api.socialnetwork.repository.PostagemRepository;
+import com.api.socialnetwork.service.PostagemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,9 +19,23 @@ public class PostagemController {
     @Autowired
     private PostagemRepository postagemRepository;
 
-    @GetMapping
+    @Autowired
+    private PostagemService postagemService;
+
+    @GetMapping("/recuperarPostagens")
     public ResponseEntity<List<Postagem>> getAll() {
         return ResponseEntity.ok(postagemRepository.findAll());
+    }
+
+    @GetMapping("/recuperarPostagensEmpresa/{juridicoid}")
+    public ResponseEntity<List<Postagem>> recuperarPostagensPorJuridicoId(@PathVariable Long juridicoid) {
+        List<Postagem> postagens = postagemRepository.findByJuridicoId(juridicoid);
+
+        if (!postagens.isEmpty()) {
+            return ResponseEntity.ok(postagens);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @GetMapping("/{titulo}")
@@ -28,9 +44,9 @@ public class PostagemController {
     }
 
     @PostMapping("/novoPost")
-    public ResponseEntity<Postagem> post(@Valid @RequestBody Postagem postagem) {
+    public ResponseEntity<Postagem2> post(@Valid @RequestBody Postagem2 postagem) {
         return ResponseEntity.status(HttpStatus.CREATED)
-                .body(postagemRepository.save(postagem));
+                .body(postagemService.novoPost(postagem));
     }
 
     @DeleteMapping("/{id}")

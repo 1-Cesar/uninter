@@ -1,7 +1,5 @@
 package com.api.socialnetwork.config;
 
-import io.swagger.v3.oas.annotations.Hidden;
-import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.ExternalDocumentation;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Contact;
@@ -9,15 +7,12 @@ import io.swagger.v3.oas.models.info.Info;
 import io.swagger.v3.oas.models.info.License;
 import io.swagger.v3.oas.models.responses.ApiResponse;
 import io.swagger.v3.oas.models.responses.ApiResponses;
-import io.swagger.v3.oas.models.security.SecurityRequirement;
-import io.swagger.v3.oas.models.security.SecurityScheme;
 import org.springdoc.core.customizers.OpenApiCustomiser;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class OpenApiConfig {
-
     @Bean
     public OpenAPI documentacao() {
         return new OpenAPI()
@@ -33,7 +28,7 @@ public class OpenApiConfig {
                                 .url("https://github.com.br/1-Cesar")))
                 .externalDocs(new ExternalDocumentation()
                         .description("Clique aqui para ver o diagrama de Entidade Relacionamento")
-                        .url("#"));
+                        .url("https://github.com/1-Cesar/uninter/assets/92181625/c11f7b63-f878-4dea-85df-1c27add829d8"));
     }
 
     @Bean

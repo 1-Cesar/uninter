@@ -1,9 +1,4 @@
 package com.api.socialnetwork.repository;
-/**
- * @since 13/09/2022
- * @autor Cesar Augusto
- * @version v1
- */
 
 import com.api.socialnetwork.model.Juridico;
 import org.springframework.data.jpa.repository.JpaRepository;

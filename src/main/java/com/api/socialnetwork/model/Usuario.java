@@ -1,12 +1,6 @@
 package com.api.socialnetwork.model;
-/**
- * @since 13/09/2022
- * @autor Cesar Augusto
- * @version v1
- */
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import io.swagger.v3.oas.annotations.Hidden;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;
@@ -14,8 +8,8 @@ import lombok.Setter;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -40,6 +34,10 @@ public class Usuario {
     @NotNull
     private String cid;
 
-    public Usuario() {
-    }
+    @NotNull
+    private String tipo;
+
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
+    @JsonManagedReference
+    private List<Candidatura> candidaturas;
 }

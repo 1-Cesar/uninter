@@ -15,5 +15,7 @@ public class UsuarioLogin {
     private String senha;
 
     @NotNull
-    private Boolean logado;
+    private String tipo;
+
+    private Long id;
 }

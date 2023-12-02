@@ -12,7 +12,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/juridico")
+@RequestMapping("/empresa")
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class JuridicoController {
     @Autowired

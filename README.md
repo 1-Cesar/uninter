@@ -19,6 +19,12 @@
 <h2>Tela de Login</h2>
 <img src="https://github.com/1-Cesar/uninter/assets/92181625/853b7a3b-8e54-444b-aa31-dc62bac64906">
 
+<h2>Tela de Cadastro de Empresa</h2>
+<img src="https://github.com/1-Cesar/uninter/assets/92181625/b5d4ed1d-9db3-49cf-bf49-a00de8aa7e94">
+
+<h2>Tela de Cadastro de Usuario</h2>
+<img src="https://github.com/1-Cesar/uninter/assets/92181625/5a5093f1-5a6b-4592-b27c-cf25cc6e46e8">
+
 <h2>Clonando este Projeto</h2>
 <p>Para clonar este projeto basta digitar o seguinte comando em seu terminal git<p>
 <ul>
